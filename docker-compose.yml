@@ -1,0 +1,36 @@
+version: '3'
+services:
+  database:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=quelpunto2244
+      - MYSQL_DATABASE=arkpz
+      - MYSQL_PASSWORD=quelpunto2244
+      - BUILD_VERSION=1.0-SNAPSHOT
+    volumes:
+      - /data/mysql
+    networks:
+      - arkpz
+  spring-boot-jpa-app:
+    image: zradnyk/arkpz:alpha
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_HOST=arkpz_database
+      - DATABASE_USER=root
+      - DATABASE_NAME=arkpz
+      - DATABASE_PORT=3306
+      - DATABASE_PASSWORD=quelpunto2244
+    networks:
+      - arkpz
+networks:
+  arkpz:
+    driver: bridge
