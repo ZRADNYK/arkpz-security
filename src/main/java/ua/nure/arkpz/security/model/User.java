@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private String password;
     private String token;
     private Date tokenExpirationDate;
-    private Date birthDate
+    private Date birthDate;
 
     // private Set<Role> roles;
     private Boolean isAccountNonExpired;
