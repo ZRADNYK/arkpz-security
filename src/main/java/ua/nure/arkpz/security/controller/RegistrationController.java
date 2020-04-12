@@ -4,49 +4,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ua.nure.arkpz.security.model.User;
+import ua.nure.arkpz.security.service.RegistrationService;
 import ua.nure.arkpz.security.service.UserService;
 
 @RestController
 @CrossOrigin
 public class RegistrationController {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+    private final RegistrationService registrationService;
 
     @Autowired
-    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
+    public RegistrationController(UserService userService, RegistrationService registrationService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+        this.registrationService = registrationService;
     }
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        final UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
+    public ResponseEntity<?> register(@RequestBody User userDTO) {
+        final UserDetails userDetails = userService.loadUserByUsername(userDTO.getUsername());
 
-        if (userDetails != null) {
+        if (userDetails.getUsername().equals(userDTO.getUsername())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        User userFromDb = User.builder()
-                .userId(null)
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .username(user.getUsername())
-                .password(passwordEncoder.encode(user.getPassword()))
-                .token(null)
-                .tokenExpirationDate(null)
-                .isAccountNonExpired(true)
-                .isAccountNonLocked(true)
-                .isCredentialsNonExpired(true)
-                .isEnabled(true)
-                .build();
-        userService.save(userFromDb);
-        return ResponseEntity.ok(userFromDb);
+        User registeredUser = registrationService.registerUser(userDTO);
+        return ResponseEntity.ok(registeredUser);
     }
 }
