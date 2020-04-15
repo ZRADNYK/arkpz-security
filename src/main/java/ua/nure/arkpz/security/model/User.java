@@ -1,5 +1,6 @@
 package ua.nure.arkpz.security.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import net.sf.oval.constraint.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ua.nure.arkpz.security.util.validator.constraints.CheckUniqueMail;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
@@ -69,6 +71,7 @@ public class User implements UserDetails {
 
     @Column(name = "birthDate")
     @NotNull
+    @JsonFormat(pattern="MM/dd/yyyy")
     private Date birthDate;
 
     // private Set<Role> roles;

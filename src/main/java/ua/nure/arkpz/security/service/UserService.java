@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
         return userDao.findByEmail(email).orElse(new User());
     }
 
-    public User findByUsername(String username) {
+   /* public User findByUsername(String username) {
         return userDao.findByUsername(username).orElse(new User());
-    }
+    }*/
 }
