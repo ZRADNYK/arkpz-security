@@ -27,9 +27,9 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User userDTO) {
-        final UserDetails userDetails = userService.loadUserByUsername(userDTO.getUsername());
+        final UserDetails userDetails = userService.loadUserByUsername(userDTO.getEmail());
 
-        if (userDetails.getUsername().equals(userDTO.getUsername())) {
+        if (userDetails.getUsername().equals(userDTO.getEmail())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 

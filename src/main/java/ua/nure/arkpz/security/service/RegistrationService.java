@@ -30,7 +30,7 @@ public class RegistrationService {
                 .lastName(userDTO.getLastName())
                 //.firstName(Optional.ofNullable(userDTO.getFirstName()).orElse(""))
                 //.lastName(Optional.ofNullable(userDTO.getLastName()).orElse(""))
-                .username(userDTO.getUsername())
+                //.username(userDTO.getUsername())
                 .password(passwordEncoder.encode(userDTO.getPassword()))
                 .birthDate(userDTO.getBirthDate())
                 .email(userDTO.getEmail())

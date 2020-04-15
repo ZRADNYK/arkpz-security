@@ -21,7 +21,7 @@ public class AuthenticationService {
     public boolean authenticate(User user, User userFromDb) {
         if (passwordEncoder.matches(user.getPassword(), userFromDb.getPassword())) {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
             return true;
         }
         return false;

@@ -6,8 +6,8 @@ import ua.nure.arkpz.security.model.User;
 import ua.nure.arkpz.security.service.UserService;
 
 
-public class CheckUniqueUsername implements CheckWithCheck.SimpleCheck {
-    @Autowired
+public class CheckUniqueUsername {
+  /*  @Autowired
     private UserService userService;
 
     @Override
@@ -17,6 +17,6 @@ public class CheckUniqueUsername implements CheckWithCheck.SimpleCheck {
 
         return (userFromDB.getUserId().equals(user.getUserId())
                 || !(userFromDB.getUsername().equals(user.getUsername())));
-    }
+    }*/
 }
 

@@ -33,11 +33,11 @@ public class User implements UserDetails {
     @MatchPattern(pattern = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", message = "Incorrect symbols in last name")
     private String lastName;
 
-    @Column(name = "username", length = 45, nullable = false)
+    /*@Column(name = "username", length = 45, nullable = false)
     @Length(min = 4, max = 45, message = "Username is out of possible length (4 to 45)")
     @MatchPattern(pattern = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", message = "Incorrect symbols in username")
     @CheckWith(value = CheckUniqueMail.class, message = "Username is not unique, choose other")
-    private String username;
+    private String username;*/
 
 
     @Column(name = "email", length = 100, nullable = false, unique = true)
@@ -137,11 +137,11 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return Optional.ofNullable(username).orElse("");
+        return Optional.ofNullable(email).orElse("");
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.email = username;
     }
 
     public String getEmail() {

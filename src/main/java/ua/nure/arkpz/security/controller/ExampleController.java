@@ -14,7 +14,7 @@ public class ExampleController {
             return "You shouldn't see this page! How did you do that?!";
         }
         if (user.getToken() != null) {
-            return "You can see this page because you're authorized, " + user.getUsername();
+            return "You can see this page because you're authorized, " + user.getEmail();
         }
         return "Example page";
     }
